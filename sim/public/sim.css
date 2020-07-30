@@ -1,0 +1,11 @@
+svg {
+    width:100%;
+    display: none;
+}
+
+.sprite {
+    fill:yellow;
+    stroke:#ccc;
+    stroke-width: 3px;
+    display: none;
+}
