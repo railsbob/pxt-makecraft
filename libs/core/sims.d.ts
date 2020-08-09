@@ -1,4 +1,49 @@
 // Auto-generated from simulator. Do not edit.
+declare namespace basic {
+    /**
+     * Listens to player walk event
+     * @param handler 
+     */
+    //% blockId=basicPlayerTravelled block="on player walk"
+    //% weight=100
+    //% shim=basic::onWalkAsync promise
+    function onWalk(handler: () => void): void;
+
+}
+declare namespace agent {
+    /**
+     * Moves the agent forward
+     * @param direction the direction to turn, eg: Direction.Left
+     * @param steps steps to move, eg:1
+     */
+    //% weight=95
+    //% blockId=agentMove block="agent move %direction|by %steps"
+    //% steps.min=0 steps.max=100
+    //% shim=agent::moveAsync promise
+    function move(direction: Direction, steps: number): void;
+
+    /**
+     * Turns the agent
+     * @param direction the direction to turn, eg: Direction.Left
+     */
+    //% weight=90
+    //% blockId=agentTurn block="agent turn %direction"
+    //% turnAsync.fieldEditor="gridpicker"
+    //% shim=agent::turnAsync promise
+    function turn(direction: Direction): void;
+
+}
+declare namespace player {
+    /**
+     * Listens to player walk event
+     * @param handler 
+     */
+    //% weight=85
+    //% blockId=playerTravelled block="on player walk"
+    //% shim=player::onWalkAsync promise
+    function onWalk(handler: () => void): void;
+
+}
 declare namespace hare {
     /**
      * This is hop
@@ -19,7 +64,7 @@ declare namespace turtle {
      * Moves the sprite forward
      * @param steps number of steps to move, eg: 1
      */
-    //% weight=90
+    //% weight=50
     //% blockId=sampleForward block="forward %steps"
     //% shim=turtle::forwardAsync promise
     function forward(steps: number): void;
@@ -29,7 +74,7 @@ declare namespace turtle {
      * @param direction the direction to turn, eg: Direction.Left
      * @param angle degrees to turn, eg:90
      */
-    //% weight=85
+    //% weight=50
     //% blockId=sampleTurn block="turn %direction|by %angle degrees"
     //% angle.min=-180 angle.max=180
     //% shim=turtle::turnAsync promise
@@ -49,7 +94,7 @@ declare namespace loops {
      * Repeats the code forever in the background. On each iteration, allows other code to run.
      * @param body the code to repeat
      */
-    //% help=functions/forever weight=55 blockGap=8
+    //% help=functions/forever weight=45 blockGap=8
     //% blockId=device_forever block="forever"
     //% shim=loops::forever
     function forever(body: () => void): void;
@@ -58,7 +103,7 @@ declare namespace loops {
      * Pause for the specified time in milliseconds
      * @param ms how long to pause for, eg: 100, 200, 500, 1000, 2000
      */
-    //% help=functions/pause weight=54
+    //% help=functions/pause weight=44
     //% block="pause (ms) %pause" blockId=device_pause
     //% shim=loops::pauseAsync promise
     function pause(ms: number): void;
@@ -100,20 +145,5 @@ declare namespace console {
         public forward(steps: number): void;
 
     }
-declare namespace sprites {
-    /**
-     * Creates a new sprite
-     */
-    //% blockId="sampleCreate" block="createSprite"
-    //% shim=sprites::createSprite
-    function createSprite(): Sprite;
-
-}
-declare namespace agent {
-    //% blockId="sampleMove" block="move"
-    //% shim=agent::move
-    function move(): void;
-
-}
 
 // Auto-generated. Do not edit. Really.

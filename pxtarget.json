@@ -11,10 +11,10 @@
         "libs/core"
     ],
     "runtime": {
-      "mathBlocks": true,
+      "mathBlocks": false,
       "loopsBlocks": true,
-      "logicBlocks": true,
-      "variablesBlocks": true,
+      "logicBlocks": false,
+      "variablesBlocks": false,
       "textBlocks": false,
       "functionBlocks": false,
       "listsBlocks": false

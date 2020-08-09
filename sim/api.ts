@@ -1,5 +1,57 @@
 /// <reference path="../libs/core/enums.d.ts"/>
 
+namespace pxsim.basic {
+    /**
+     * Listens to player walk event
+     * @param handler 
+     */
+    //% blockId=basicPlayerTravelled block="on player walk"
+    //% weight=100
+    export function onWalkAsync(handler: RefAction) {
+        return pxsim.player.onWalkAsync(handler)
+    }
+}
+
+namespace pxsim.agent {
+    /**
+     * Moves the agent forward
+     * @param direction the direction to turn, eg: Direction.Left
+     * @param steps steps to move, eg:1
+     */
+    //% weight=95
+    //% blockId=agentMove block="agent move %direction|by %steps"
+    //% steps.min=0 steps.max=100
+    export function moveAsync(direction: Direction, steps: number) {
+        console.log("Move by: " + steps)
+        return Promise.delay(400)
+    }
+
+    /**
+     * Turns the agent
+     * @param direction the direction to turn, eg: Direction.Left
+     */
+    //% weight=90
+    //% blockId=agentTurn block="agent turn %direction"
+    //% turnAsync.fieldEditor="gridpicker"
+    export function turnAsync(direction: Direction) {
+        console.log("Turn: " + direction)
+        return Promise.delay(400)
+    }
+}
+
+namespace pxsim.player {
+    /**
+     * Listens to player walk event
+     * @param handler 
+     */
+    //% weight=85
+    //% blockId=playerTravelled block="on player walk"
+    export function onWalkAsync(handler: RefAction) {
+        console.log("Walk")
+        return Promise.delay(400)
+    } 
+}
+
 namespace pxsim.hare {
     /**
      * This is hop
@@ -22,7 +74,7 @@ namespace pxsim.turtle {
      * Moves the sprite forward
      * @param steps number of steps to move, eg: 1
      */
-    //% weight=90
+    //% weight=50
     //% blockId=sampleForward block="forward %steps"
     export function forwardAsync(steps: number) {
         return board().sprite.forwardAsync(steps)
@@ -33,7 +85,7 @@ namespace pxsim.turtle {
      * @param direction the direction to turn, eg: Direction.Left
      * @param angle degrees to turn, eg:90
      */
-    //% weight=85
+    //% weight=50
     //% blockId=sampleTurn block="turn %direction|by %angle degrees"
     //% angle.min=-180 angle.max=180
     export function turnAsync(direction: Direction, angle: number) {
@@ -64,7 +116,7 @@ namespace pxsim.loops {
      * Repeats the code forever in the background. On each iteration, allows other code to run.
      * @param body the code to repeat
      */
-    //% help=functions/forever weight=55 blockGap=8
+    //% help=functions/forever weight=45 blockGap=8
     //% blockId=device_forever block="forever" 
     export function forever(body: RefAction): void {
         thread.forever(body)
@@ -74,7 +126,7 @@ namespace pxsim.loops {
      * Pause for the specified time in milliseconds
      * @param ms how long to pause for, eg: 100, 200, 500, 1000, 2000
      */
-    //% help=functions/pause weight=54
+    //% help=functions/pause weight=44
     //% block="pause (ms) %pause" blockId=device_pause
     export function pauseAsync(ms: number) {
         return Promise.delay(ms)
@@ -133,22 +185,5 @@ namespace pxsim {
 
             return Promise.delay(400)
         }
-    }
-}
-
-namespace pxsim.sprites {
-    /**
-     * Creates a new sprite
-     */
-    //% blockId="sampleCreate" block="createSprite"
-    export function createSprite(): Sprite {
-        return new Sprite();
-    }
-}
-
-namespace pxsim.agent {
-    //% blockId="sampleMove" block="move"
-    export function move(): void {
-        alert("From command");
     }
 }
