@@ -1,4 +1,8 @@
 declare const enum Direction {
+    //% block=forward
+    Forward,
+    //% block=backward
+    Backward,
     //% block=left
     Left,
     //% block=right

@@ -1,4 +1,5 @@
 /// <reference path="../node_modules/pxt-core/built/pxtsim.d.ts"/>
+/// <reference path="../node_modules/axios/index.d.ts"/>
 
 namespace pxsim {
     /**
@@ -44,6 +45,33 @@ namespace pxsim {
             return Promise.resolve();
         }       
         
+        turn(direction: Direction): Promise<Response> {
+            const dir = (direction == Direction.Left) ? "left" : "right"
+            return fetch(`http://192.168.0.2:3000/turn/${dir}`)
+        }
+
+        move(direction: Direction): Promise<Response> {
+            let dir = 'forward'
+
+            if (direction == Direction.Left) {
+                dir = "left"
+            } else if (direction == Direction.Right) {
+                dir = "right"
+            } else if (direction == Direction.Backward) {
+                dir = "back"
+            }
+
+            return fetch(`http://192.168.0.2:3000/move/${dir}`)
+        }
+
+        place(slot: number, direction: Direction): Promise<Response> {
+            return fetch(`http://192.168.0.2:3000/place/:slot/:direction`)
+        }
+
+        destroy(direction: Direction): Promise<Response> {
+            return fetch(`http://192.168.0.2:3000/destroy/:direction`)
+        }
+
         updateView() {
             this.spriteElement.cx.baseVal.value = this.sprite.x;
             this.spriteElement.cy.baseVal.value = this.sprite.y;

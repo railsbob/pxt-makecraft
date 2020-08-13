@@ -17,10 +17,9 @@ declare namespace agent {
      * @param steps steps to move, eg:1
      */
     //% weight=95
-    //% blockId=agentMove block="agent move %direction|by %steps"
-    //% steps.min=0 steps.max=100
+    //% blockId=agentMove block="agent move %direction"
     //% shim=agent::moveAsync promise
-    function move(direction: Direction, steps: number): void;
+    function move(direction: Direction): void;
 
     /**
      * Turns the agent
@@ -31,6 +30,17 @@ declare namespace agent {
     //% turnAsync.fieldEditor="gridpicker"
     //% shim=agent::turnAsync promise
     function turn(direction: Direction): void;
+
+    /**
+     * Places an item from given slot in the given direction
+     * @param slot the inventory slot number, eg:1
+     * @param direction the direction to place the item, eg: Direction.Left
+     */
+    //% weight=85
+    //% blockId=agentPlace block="agent place %slot %direction"
+    //% placeAsync.fieldEditor="gridpicker"
+    //% shim=agent::placeAsync promise
+    function place(slot: number, direction: Direction): void;
 
 }
 declare namespace player {

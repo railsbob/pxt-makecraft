@@ -19,10 +19,9 @@ namespace pxsim.agent {
      * @param steps steps to move, eg:1
      */
     //% weight=95
-    //% blockId=agentMove block="agent move %direction|by %steps"
-    //% steps.min=0 steps.max=100
-    export function moveAsync(direction: Direction, steps: number) {
-        console.log("Move by: " + steps)
+    //% blockId=agentMove block="agent move %direction"
+    export function moveAsync(direction: Direction) {
+        board().move(direction)
         return Promise.delay(400)
     }
 
@@ -34,7 +33,20 @@ namespace pxsim.agent {
     //% blockId=agentTurn block="agent turn %direction"
     //% turnAsync.fieldEditor="gridpicker"
     export function turnAsync(direction: Direction) {
-        console.log("Turn: " + direction)
+        board().turn(direction)
+        return Promise.delay(400)
+    }
+
+    /**
+     * Places an item from given slot in the given direction
+     * @param slot the inventory slot number, eg:1
+     * @param direction the direction to place the item, eg: Direction.Left
+     */
+    //% weight=85
+    //% blockId=agentPlace block="agent place %slot %direction"
+    //% placeAsync.fieldEditor="gridpicker"
+    export function placeAsync(slot: number, direction: Direction) {
+        board().place(slot, direction)
         return Promise.delay(400)
     }
 }
