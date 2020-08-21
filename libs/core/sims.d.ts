@@ -1,19 +1,8 @@
 // Auto-generated from simulator. Do not edit.
-declare namespace basic {
-    /**
-     * Listens to player walk event
-     * @param handler 
-     */
-    //% blockId=basicPlayerTravelled block="on player walk"
-    //% weight=100
-    //% shim=basic::onWalkAsync promise
-    function onWalk(handler: () => void): void;
-
-}
 declare namespace agent {
     /**
      * Moves the agent forward
-     * @param direction the direction to turn, eg: Direction.Left
+     * @param direction the direction to turn, eg: Direction.Forward
      * @param steps steps to move, eg:1
      */
     //% weight=95
@@ -34,13 +23,31 @@ declare namespace agent {
     /**
      * Places an item from given slot in the given direction
      * @param slot the inventory slot number, eg:1
-     * @param direction the direction to place the item, eg: Direction.Left
+     * @param direction the direction to place the item, eg: Direction.Forward
      */
     //% weight=85
     //% blockId=agentPlace block="agent place %slot %direction"
     //% placeAsync.fieldEditor="gridpicker"
     //% shim=agent::placeAsync promise
     function place(slot: number, direction: Direction): void;
+
+    /**
+     * Destroys the block in the given direction
+     * @param direction the direction to destroy the item, eg: Direction.Forward
+     */
+    //% weight=80
+    //% blockId=agentDestroy block="agent destroy %direction"
+    //% placeAsync.fieldEditor="gridpicker"
+    //% shim=agent::destroyAsync promise
+    function destroy(direction: Direction): void;
+
+    /**
+     * Teleports the agent to the player
+     */
+    //% weight=95
+    //% blockId=agentTp block="agent teleport to player"
+    //% shim=agent::teleportAsync promise
+    function teleport(): void;
 
 }
 declare namespace player {
@@ -49,7 +56,7 @@ declare namespace player {
      * @param handler 
      */
     //% weight=85
-    //% blockId=playerTravelled block="on player walk"
+    //% blockId=onWalk block="on player walk"
     //% shim=player::onWalkAsync promise
     function onWalk(handler: () => void): void;
 

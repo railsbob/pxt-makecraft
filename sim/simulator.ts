@@ -6,7 +6,27 @@ namespace pxsim {
      * This function gets called each time the program restarts
      */
     initCurrentRuntime = () => {
-        runtime.board = new Board();
+        const ws  = new WebSocket('ws://localhost:25565/', ['pxt']);
+        ws.onopen = function() {
+            // Web Socket is connected, send data using send()
+        };
+          
+         ws.onmessage = function (evt) {
+            var msg = JSON.parse(evt.data);
+            console.log("Message is received...");
+            console.log(msg);
+            if (msg.type == "PlayerTravelled") {
+                board().bus.queue("Player", "Walk");
+            }
+         };
+          
+         ws.onclose = function() {
+            
+            // websocket is closed.
+            alert("Connection is closed..."); 
+         };
+
+         runtime.board = new Board();
     };
 
     /**
@@ -34,7 +54,7 @@ namespace pxsim {
             this.element = <SVGSVGElement><any>document.getElementById('svgcanvas');
             this.spriteElement = <SVGCircleElement>this.element.getElementById('svgsprite');
             this.hareElement = <SVGCircleElement>this.element.getElementById('svgsprite2');
-            this.sprite = new Sprite()
+            this.sprite = new Sprite();
             this.hare = new Sprite();
         }
         
@@ -65,11 +85,35 @@ namespace pxsim {
         }
 
         place(slot: number, direction: Direction): Promise<Response> {
-            return fetch(`http://192.168.0.2:3000/place/:slot/:direction`)
+            let dir = 'forward'
+
+            if (direction == Direction.Left) {
+                dir = "left"
+            } else if (direction == Direction.Right) {
+                dir = "right"
+            } else if (direction == Direction.Backward) {
+                dir = "back"
+            }
+
+            return fetch(`http://192.168.0.2:3000/place/${slot}/${dir}`)
+        }
+
+        tpToPlayer(): Promise<Response> {
+            return fetch(`http://192.168.0.2:3000/tp`)
         }
 
         destroy(direction: Direction): Promise<Response> {
-            return fetch(`http://192.168.0.2:3000/destroy/:direction`)
+            let dir = 'forward'
+
+            if (direction == Direction.Left) {
+                dir = "left"
+            } else if (direction == Direction.Right) {
+                dir = "right"
+            } else if (direction == Direction.Backward) {
+                dir = "back"
+            }
+            
+            return fetch(`http://192.168.0.2:3000/destroy/${dir}`)
         }
 
         updateView() {
