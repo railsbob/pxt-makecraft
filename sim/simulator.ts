@@ -18,10 +18,12 @@ namespace pxsim {
             if (msg.type == "PlayerTravelled") {
                 board().bus.queue("Player", "Walk");
             }
+            if (msg.type == "PlayerMessage") {
+                board().bus.queue("Player", `Chat:${msg.data}`)
+            }
          };
           
          ws.onclose = function() {
-            
             // websocket is closed.
             alert("Connection is closed..."); 
          };

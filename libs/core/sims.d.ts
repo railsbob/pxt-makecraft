@@ -1,4 +1,15 @@
 // Auto-generated from simulator. Do not edit.
+declare namespace basic {
+    /**
+     * Listens to player walk event
+     * @param handler 
+     */
+    //% blockId=basicPlayerTravelled block="on player walk"
+    //% weight=100
+    //% shim=basic::onWalkAsync promise
+    function onWalk(handler: () => void): void;
+
+}
 declare namespace agent {
     /**
      * Moves the agent forward
@@ -59,6 +70,16 @@ declare namespace player {
     //% blockId=onWalk block="on player walk"
     //% shim=player::onWalkAsync promise
     function onWalk(handler: () => void): void;
+
+    /**
+     * Listens to player command event
+     * @param command the chat command, eg: run
+     * @param handler 
+     */
+    //% weight=80
+    //% blockId=onChatCommand block="on chat command %command"
+    //% shim=player::onChatCommandAsync promise
+    function onChatCommand(command: string, handler: () => void): void;
 
 }
 declare namespace hare {

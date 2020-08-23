@@ -1,17 +1,17 @@
 /// <reference path="../libs/core/enums.d.ts"/>
 
-// namespace pxsim.basic {
-//     /**
-//      * Listens to player walk event
-//      * @param handler 
-//      */
-//     //% blockId=basicPlayerTravelled block="on player walk"
-//     //% weight=100
-//     export function onWalkAsync(handler: RefAction) {
-//         pxsim.player.onWalkAsync(handler)
-//         return Promise.delay(400)
-//     }
-// }
+namespace pxsim.basic {
+    /**
+     * Listens to player walk event
+     * @param handler 
+     */
+    //% blockId=basicPlayerTravelled block="on player walk"
+    //% weight=100
+    export function onWalkAsync(handler: RefAction) {
+        pxsim.player.onWalkAsync(handler)
+        return Promise.delay(400)
+    }
+}
 
 namespace pxsim.agent {
     /**
@@ -83,8 +83,20 @@ namespace pxsim.player {
     //% blockId=onWalk block="on player walk"
     export function onWalkAsync(handler: RefAction) {
         let b = board();
-        console.log("listening");
         b.bus.listen("Player", "Walk", handler);
+        return Promise.delay(400);
+    }
+
+    /**
+     * Listens to player command event
+     * @param command the chat command, eg: run
+     * @param handler 
+     */
+    //% weight=80
+    //% blockId=onChatCommand block="on chat command %command"
+    export function onChatCommandAsync(command: string, handler: RefAction) {
+        let b = board();
+        b.bus.listen("Player", `Chat:${command}`, handler);
         return Promise.delay(400);
     }
 }
